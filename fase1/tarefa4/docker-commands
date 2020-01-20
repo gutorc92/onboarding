@@ -1,0 +1,5 @@
+docker run -d -p 9104:9104  --network tarefa2_default -e DATA_SOURCE_NAME="exporter:examplepass@(tarefa2_db_1:3306)/" --name exporter prom/mysqld-exporter --collect.info_schema.processlist --collect.info_schema.innodb_metrics --collect.info_schema.tablestats --collect.info_schema.tables --collect.info_schema.userstats --collect.engine_innodb_status --collect.perf_schema.tableiowaits
+
+docker run -p 9090:9090 --network tarefa2_default -v $PWD/prometheus.yml:/etc/prometheus/prometheus.yml -d --name prom prom/prometheus
+
+docker run -d -p 3000:3000 --name=grafana --network tarefa2_default -e "GF_SECURITY_ADMIN_PASSWORD=admin" grafana/grafana
