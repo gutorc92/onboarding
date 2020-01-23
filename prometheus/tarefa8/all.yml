@@ -1,0 +1,10 @@
+apiVersion: 1
+
+providers:
+- name: 'uri'
+  org_id: 1
+  folder: ''
+  editable: true
+  type: 'file'
+  options:
+    path: '/var/lib/grafana/dashboards'
