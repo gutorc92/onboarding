@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+  generator2:
+    container_name: generator2
+    image: labbsr0x/metrics-generator-tabajara
+    build: metrics-generator-tabajara/
+    environment:
+      - COMPONENT_NAME=testserver
+      - COMPONENT_VERSION=1.0.0
+    ports:
+      - 3008:3000
+    networks:
+      - prometheus_default
+  prometheus2:
+    container_name: prometheus2
+    image: flaviostutz/prometheus
+    ports:
+      - 9092:9090
+    environment:
+      - SCRAPE_INTERVAL=15s
+      - SCRAPE_TIMEOUT=10s
+      - STATIC_SCRAPE_TARGETS=generator@generator2:3000
+    networks:
+      - prometheus_default
+  prometheus3:
+    container_name: prometheus3
+    image: gutorc/prometheus
+    ports:
+      - 9093:9090
+    networks:
+      - prometheus_default
+
+networks:
+  prometheus_default:
+    external: true
