@@ -1,0 +1,3 @@
+topk(10, sort_desc(sum by (uri) (http_requests_duration_seconds_count{status=~"(4|5)xx"})))
+
+rate(http_requests_app_total[1m])
